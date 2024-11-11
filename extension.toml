@@ -1,0 +1,15 @@
+id = "sorbet"
+name = "Sorbet"
+description = "LSP support for Ruby + Sorbet"
+version = "0.1.0"
+schema_version = 1
+authors = ["Taylor Chaparro <taylorchprr@gmail.com>"]
+repository = "https://github.com/notchairmk/zed-sorbet"
+
+[language_servers.sorbet]
+name = "Sorbet"
+languages = ["Ruby"]
+
+[grammars.ruby]
+repository = "https://github.com/tree-sitter/tree-sitter-ruby"
+commit = "71bd32fb7607035768799732addba884a37a6210"

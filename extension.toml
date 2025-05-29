@@ -1,7 +1,7 @@
 id = "sorbet"
 name = "Sorbet"
 description = "LSP support for Ruby + Sorbet"
-version = "0.1.0"
+version = "0.1.1"
 schema_version = 1
 authors = ["Taylor Chaparro <taylorchprr@gmail.com>"]
 repository = "https://github.com/notchairmk/zed-sorbet"

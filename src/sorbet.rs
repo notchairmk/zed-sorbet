@@ -35,10 +35,23 @@ impl SorbetExtension {
             .collect(),
         );
 
-        let binary_args = binary_settings
-            .as_ref()
-            .and_then(|binary_settings| binary_settings.arguments.clone())
-            .or(default_binary_args);
+        // test if sorbet/config is present
+        let sorbet_config_path = vec!["sorbet", "config"].join("/");
+        let binary_args: Option<Vec<String>> =
+            match worktree.read_text_file(sorbet_config_path.as_str()) {
+                Ok(_) => binary_settings
+                    .as_ref()
+                    .and_then(|binary_settings| binary_settings.arguments.clone())
+                    .or(default_binary_args),
+                Err(_) => Some(
+                    // gross, but avoid sorbet errors in a non-sorbet
+                    // environment by using an empty config
+                    vec!["tc", "--lsp", "--dir", "./"]
+                        .iter()
+                        .map(|s| s.to_string())
+                        .collect(),
+                ),
+            };
 
         if let Some(path) = binary_settings.and_then(|binary_settings| binary_settings.path) {
             return Ok(SorbetBinary {
